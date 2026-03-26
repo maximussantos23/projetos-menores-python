@@ -16,7 +16,7 @@ class Carro:
       self.status = "Off"
       print("Motor desligado")
 
-  def dirigir(self)
+  def dirigir(self):
     if self.motor.status == "Andando":
       print(f"Dirigindo o {self.marca} {self.modelo}")
     else:
