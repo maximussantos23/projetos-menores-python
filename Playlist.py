@@ -1,9 +1,15 @@
 import time
 
 class Sistema:
+
+    """
+    Classe para representar o sistema de gerenciamento de playlists, contendo métodos para CRUD
+    simples de playlists, bem como um dicionário para armazenar as playlists e seus IDs.
+    """
+
     def __init__(self):
-        self.playlists = {} # Dicionário para armazenar as playlists, onde a key é o nome da playlist e o valor é um objeto Playlist
-        self.ids = {}       # Dicionário para armazenar os IDs das playlists
+        self.playlists = {} # Dicionário para armazenar as playlists, onde a key é o nome da playlist e o valor é um objeto Playlist. Estrutura: {nome_da_playlist(str): Playlist}
+        self.ids = {}       # Dicionário para armazenar os IDs das playlists. Estrutura: {id(int): playlist(str)}
 
     def ad_playlist(self):
         playlist = input("Digite sua playlist: ")
@@ -13,6 +19,7 @@ class Sistema:
         
         self.playlists[playlist] = Playlist(playlist)
 
+        # Gerar o próximo ID para a playlist, incrementando + 1 do último ID existente
         ult_chave = max(self.ids.keys(), default = 0)
         self.ids[ult_chave + 1] = playlist
 
@@ -29,10 +36,7 @@ class Sistema:
         
         playlist = None
 
-        for playlist_id, n in self.ids.items():
-            if playlist_id == id:
-                playlist = n
-                break
+        playlist = self.ids.get(id)
 
         if playlist in self.playlists:
             self.playlists.pop(playlist)
@@ -53,10 +57,16 @@ class Sistema:
             print("Nenhuma playlist criada!")
 
 class Playlist:
+
+    """
+    Classe para representar uma playlist, contendo métodos para CRUD simples de músicas,
+    bem como uma lista para armazenar as músicas e um dicionário para armazenar os IDs das músicas.
+    """
+
     def __init__(self, nome):
         self.nome = nome    # Nome da playlist
         self.musicas = []   # Lista para armazenar as músicas da playlist
-        self.ids = {}       # Dicionário para armazenar os IDs das músicas
+        self.ids = {}       # Dicionário para armazenar os IDs das músicas. Estrutura: {id(int): musica(str)}
 
     def ad_musica(self):
         musica = input("Digite a música: ")
@@ -79,11 +89,7 @@ class Playlist:
             print("ID inválido!")
             return
         
-        musica = None
-        for musica_id, n in self.ids.items():
-            if musica_id == id:
-                musica = n
-                break
+        musica = self.ids.get(id)
 
         if musica in self.musicas:
             self.musicas.remove(musica)
